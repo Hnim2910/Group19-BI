@@ -1,10 +1,39 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
   "name": "r01avgrating",
-  "position": { "x": 20, "y": 16, "z": 0, "height": 100, "width": 230, "tabOrder": 0 },
+  "position": {
+    "x": 20,
+    "y": 16,
+    "z": 0,
+    "height": 100,
+    "width": 230,
+    "tabOrder": 0
+  },
   "visual": {
     "visualType": "card",
-    "query": { "queryState": { "Values": { "projections": [ { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Avg Rating" } }, "queryRef": "public fact_movie.Avg Rating", "nativeQueryRef": "AVG RATING", "displayName": "AVG RATING" } ] } } },
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public fact_movie"
+                    }
+                  },
+                  "Property": "Avg Rating"
+                }
+              },
+              "queryRef": "public fact_movie.Avg Rating",
+              "nativeQueryRef": "AVG RATING",
+              "displayName": "AVG RATING"
+            }
+          ]
+        }
+      }
+    },
     "drillFilterOtherVisuals": true
   }
 }

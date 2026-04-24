@@ -1,10 +1,39 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
   "name": "t04holiday",
-  "position": { "x": 950, "y": 16, "z": 3000, "height": 100, "width": 280, "tabOrder": 3000 },
+  "position": {
+    "x": 950,
+    "y": 16,
+    "z": 3000,
+    "height": 100,
+    "width": 280,
+    "tabOrder": 3000
+  },
   "visual": {
     "visualType": "card",
-    "query": { "queryState": { "Values": { "projections": [ { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Holiday Season Revenue %" } }, "queryRef": "public fact_movie.Holiday Season Revenue %", "nativeQueryRef": "HOLIDAY %", "displayName": "HOLIDAY %" } ] } } },
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public fact_movie"
+                    }
+                  },
+                  "Property": "Holiday Season Revenue %"
+                }
+              },
+              "queryRef": "public fact_movie.Holiday Season Revenue %",
+              "nativeQueryRef": "HOLIDAY %",
+              "displayName": "HOLIDAY %"
+            }
+          ]
+        }
+      }
+    },
     "drillFilterOtherVisuals": true
   }
 }

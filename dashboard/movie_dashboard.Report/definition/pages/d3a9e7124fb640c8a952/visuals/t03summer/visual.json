@@ -1,10 +1,39 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
   "name": "t03summer",
-  "position": { "x": 640, "y": 16, "z": 2000, "height": 100, "width": 280, "tabOrder": 2000 },
+  "position": {
+    "x": 640,
+    "y": 16,
+    "z": 2000,
+    "height": 100,
+    "width": 280,
+    "tabOrder": 2000
+  },
   "visual": {
     "visualType": "card",
-    "query": { "queryState": { "Values": { "projections": [ { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Summer Revenue %" } }, "queryRef": "public fact_movie.Summer Revenue %", "nativeQueryRef": "SUMMER %", "displayName": "SUMMER %" } ] } } },
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public fact_movie"
+                    }
+                  },
+                  "Property": "Summer Revenue %"
+                }
+              },
+              "queryRef": "public fact_movie.Summer Revenue %",
+              "nativeQueryRef": "SUMMER %",
+              "displayName": "SUMMER %"
+            }
+          ]
+        }
+      }
+    },
     "drillFilterOtherVisuals": true
   }
 }

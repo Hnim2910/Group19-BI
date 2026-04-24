@@ -1,19 +1,141 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
   "name": "r07budgetrevenue",
-  "position": { "x": 450, "y": 150, "z": 6000, "height": 240, "width": 790, "tabOrder": 6000 },
+  "position": {
+    "x": 450,
+    "y": 150,
+    "z": 6000,
+    "height": 240,
+    "width": 790,
+    "tabOrder": 6000
+  },
   "visual": {
     "visualType": "scatterChart",
     "query": {
       "queryState": {
-        "Category": { "projections": [ { "field": { "Column": { "Expression": { "SourceRef": { "Entity": "public dim_movie" } }, "Property": "title" } }, "queryRef": "public dim_movie.title", "nativeQueryRef": "title", "active": true } ] },
-        "X": { "projections": [ { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Total Budget" } }, "queryRef": "public fact_movie.Total Budget", "nativeQueryRef": "Total Budget" } ] },
-        "Y": { "projections": [ { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Total Revenue" } }, "queryRef": "public fact_movie.Total Revenue", "nativeQueryRef": "Total Revenue" } ] },
-        "Size": { "projections": [ { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Total Votes" } }, "queryRef": "public fact_movie.Total Votes", "nativeQueryRef": "Total Votes" } ] },
-        "Gradient": { "projections": [ { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Avg Rating" } }, "queryRef": "public fact_movie.Avg Rating", "nativeQueryRef": "Avg Rating" } ] }
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public dim_movie"
+                    }
+                  },
+                  "Property": "title"
+                }
+              },
+              "queryRef": "public dim_movie.title",
+              "nativeQueryRef": "title",
+              "active": true
+            }
+          ]
+        },
+        "Gradient": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public fact_movie"
+                    }
+                  },
+                  "Property": "Avg Rating"
+                }
+              },
+              "queryRef": "public fact_movie.Avg Rating",
+              "nativeQueryRef": "Avg Rating"
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public fact_movie"
+                    }
+                  },
+                  "Property": "Total Votes"
+                }
+              },
+              "queryRef": "public fact_movie.Total Votes",
+              "nativeQueryRef": "Total Votes"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public fact_movie"
+                    }
+                  },
+                  "Property": "Total Budget"
+                }
+              },
+              "queryRef": "public fact_movie.Total Budget",
+              "nativeQueryRef": "Total Budget",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public fact_movie"
+                    }
+                  },
+                  "Property": "Total Revenue"
+                }
+              },
+              "queryRef": "public fact_movie.Total Revenue",
+              "nativeQueryRef": "Total Revenue"
+            }
+          ]
+        }
       }
     },
-    "visualContainerObjects": { "title": [ { "properties": { "text": { "expr": { "Literal": { "Value": "'Budget vs Revenue by Movie'" } } }, "fontSize": { "expr": { "Literal": { "Value": "14D" } } }, "bold": { "expr": { "Literal": { "Value": "true" } } } } } ] },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Budget vs Revenue by Movie'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "drillFilterOtherVisuals": true
   }
 }

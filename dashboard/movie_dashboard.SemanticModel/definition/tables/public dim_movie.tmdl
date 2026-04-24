@@ -53,7 +53,7 @@ table 'public dim_movie'
 			    [Movie Rank by Revenue] <= 10,
 			    [Total Revenue]
 			)
-		formatString: """$""#,##0,,""M"""
+		formatString: \$#,0
 		displayFolder: Rankings
 		lineageTag: 7c4f6d71-897b-4a10-a1be-70e6927a7e01
 
@@ -63,7 +63,7 @@ table 'public dim_movie'
 			    [Movie Rank by Revenue] <= 20,
 			    [Total Revenue]
 			)
-		formatString: """$""#,##0,,""M"""
+		formatString: \$#,0
 		displayFolder: Rankings
 		lineageTag: 517c0d9f-75f5-44cb-8a23-6c223a6a47c4
 

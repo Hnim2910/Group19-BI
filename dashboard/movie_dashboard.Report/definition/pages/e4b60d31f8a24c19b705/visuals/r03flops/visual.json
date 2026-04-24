@@ -1,10 +1,39 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
   "name": "r03flops",
-  "position": { "x": 520, "y": 16, "z": 2000, "height": 100, "width": 230, "tabOrder": 2000 },
+  "position": {
+    "x": 520,
+    "y": 16,
+    "z": 2000,
+    "height": 100,
+    "width": 230,
+    "tabOrder": 2000
+  },
   "visual": {
     "visualType": "card",
-    "query": { "queryState": { "Values": { "projections": [ { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Flop Count" } }, "queryRef": "public fact_movie.Flop Count", "nativeQueryRef": "FLOPS", "displayName": "FLOPS" } ] } } },
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public fact_movie"
+                    }
+                  },
+                  "Property": "Flop Count"
+                }
+              },
+              "queryRef": "public fact_movie.Flop Count",
+              "nativeQueryRef": "FLOPS",
+              "displayName": "FLOPS"
+            }
+          ]
+        }
+      }
+    },
     "drillFilterOtherVisuals": true
   }
 }

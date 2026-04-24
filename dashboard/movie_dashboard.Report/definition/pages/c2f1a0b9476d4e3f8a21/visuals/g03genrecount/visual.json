@@ -1,7 +1,14 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
   "name": "g03genrecount",
-  "position": { "x": 900, "y": 16, "z": 2000, "height": 100, "width": 340, "tabOrder": 2000 },
+  "position": {
+    "x": 900,
+    "y": 16,
+    "z": 2000,
+    "height": 100,
+    "width": 340,
+    "tabOrder": 2000
+  },
   "visual": {
     "visualType": "card",
     "query": {
@@ -9,7 +16,16 @@
         "Values": {
           "projections": [
             {
-              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public dim_genre" } }, "Property": "Genre Count" } },
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public dim_genre"
+                    }
+                  },
+                  "Property": "Genre Count"
+                }
+              },
               "queryRef": "public dim_genre.Genre Count",
               "nativeQueryRef": "GENRE COUNT",
               "displayName": "GENRE COUNT"

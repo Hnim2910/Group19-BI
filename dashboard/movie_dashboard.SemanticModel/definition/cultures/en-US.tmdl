@@ -1,2 +1,242 @@
 cultureInfo en-US
 
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "public_fact_movie.best_genre_by_revenue": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "public fact_movie",
+			          "ConceptualProperty": "Best Genre by Revenue"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "BEST GENRE": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "public_fact_movie.best_genre_by_roi": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "public fact_movie",
+			          "ConceptualProperty": "Best Genre by ROI"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "MOST PROFITABLE GENRE": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "public_fact_movie.column2010s_revenue_share": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "public fact_movie",
+			          "ConceptualProperty": "2010s Revenue Share"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "2010s REVENUE SHARE": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "public_fact_movie.best_month_by_revenue": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "public fact_movie",
+			          "ConceptualProperty": "Best Month by Revenue"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "BEST MONTH": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "public_fact_movie.summer_revenue_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "public fact_movie",
+			          "ConceptualProperty": "Summer Revenue %"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "SUMMER %": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "public_fact_movie.holiday_season_revenue_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "public fact_movie",
+			          "ConceptualProperty": "Holiday Season Revenue %"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "HOLIDAY %": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "public_fact_movie.avg_rating": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "public fact_movie",
+			          "ConceptualProperty": "Avg Rating"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "AVG RATING": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "public_fact_movie.blockbuster_count": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "public fact_movie",
+			          "ConceptualProperty": "Blockbuster Count"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "BLOCKBUSTERS": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "public_fact_movie.flop_count": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "public fact_movie",
+			          "ConceptualProperty": "Flop Count"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "FLOPS": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "public_fact_movie.profitable_movies_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "public fact_movie",
+			          "ConceptualProperty": "Profitable Movies %"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "PROFITABLE %": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "public_dim_genre.genre_count": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "public dim_genre",
+			          "ConceptualProperty": "Genre Count"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "GENRE COUNT": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+

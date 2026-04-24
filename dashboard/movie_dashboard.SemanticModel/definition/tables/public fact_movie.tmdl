@@ -9,19 +9,19 @@ table 'public fact_movie'
 
 	/// Tổng doanh thu toàn cầu (triệu USD)
 	measure 'Total Revenue' = SUM('public fact_movie'[worldwide_gross])
-		formatString: """$""#,##0,,""M"""
+		formatString: \$#,0
 		displayFolder: KPIs
 		lineageTag: e218d5d9-364f-4998-9ab0-7223f01ba97c
 
 	/// Tổng chi phí sản xuất
 	measure 'Total Budget' = SUM('public fact_movie'[production_budget])
-		formatString: """$""#,##0,,""M"""
+		formatString: \$#,0
 		displayFolder: KPIs
 		lineageTag: e860743f-0f53-409e-b379-10487097a9c5
 
 	/// Tổng lợi nhuận (worldwide_gross - production_budget)
 	measure 'Total Profit' = SUM('public fact_movie'[profit])
-		formatString: """$""#,##0,,""M"""
+		formatString: \$#,0
 		displayFolder: KPIs
 		lineageTag: cbb2a664-eef2-463a-8253-be5e9c5ea2fc
 
@@ -76,7 +76,7 @@ table 'public fact_movie'
 			        'public dim_time'[full_date] <= MAX('public dim_time'[full_date])
 			    )
 			)
-		formatString: """$""#,##0,,""M"""
+		formatString: \$#,0
 		displayFolder: Time Intelligence
 		lineageTag: 834a2f8c-4cdb-4dcc-834e-f93a1030ef32
 
@@ -88,13 +88,13 @@ table 'public fact_movie'
 
 	/// Doanh thu trung bình mỗi phim
 	measure 'Avg Revenue per Movie' = DIVIDE([Total Revenue], [Total Movies])
-		formatString: """$""#,##0,,""M"""
+		formatString: \$#,0
 		displayFolder: KPIs
 		lineageTag: ca20d6e7-b47e-4fd7-b6e1-b2b528754ac0
 
 	/// Budget trung bình mỗi phim
 	measure 'Avg Budget per Movie' = DIVIDE([Total Budget], [Total Movies])
-		formatString: """$""#,##0,,""M"""
+		formatString: \$#,0
 		displayFolder: KPIs
 		lineageTag: 7ff33dec-e14c-47b3-8a2d-bafa4351dee7
 
@@ -191,19 +191,19 @@ table 'public fact_movie'
 
 	/// Doanh thu trung bình mỗi phim trong genre
 	measure 'Avg Revenue per Movie in Genre' = DIVIDE([Total Revenue], [Movies per Genre])
-		formatString: """$""#,##0,,""M"""
+		formatString: \$#,0
 		displayFolder: Genre Analysis
 		lineageTag: 372a56a6-741d-409a-a915-e54d4865f3ad
 
 	/// Doanh thu theo mùa (Spring/Summer/Fall/Winter)
 	measure 'Revenue by Season' = CALCULATE([Total Revenue])
-		formatString: """$""#,##0,,""M"""
+		formatString: \$#,0
 		displayFolder: Time Analysis
 		lineageTag: d82d1e7a-b3e7-440c-9fd7-1285b1f4da85
 
 	/// Doanh thu theo thập niên
 	measure 'Revenue by Decade' = CALCULATE([Total Revenue])
-		formatString: """$""#,##0,,""M"""
+		formatString: \$#,0
 		displayFolder: Time Analysis
 		lineageTag: e48489f8-3682-4eed-bd51-543a08aca1c1
 
@@ -233,19 +233,19 @@ table 'public fact_movie'
 			    [Total Revenue],
 			    'public dim_time'[is_weekend] = TRUE
 			)
-		formatString: """$""#,##0,,""M"""
+		formatString: \$#,0
 		displayFolder: Time Analysis
 		lineageTag: f0b87f98-0453-4beb-b3d1-5581b1e491a2
 
 	/// Doanh thu nội địa (Mỹ)
 	measure 'Domestic Revenue' = SUM('public fact_movie'[domestic_gross])
-		formatString: """$""#,##0,,""M"""
+		formatString: \$#,0
 		displayFolder: Market Split
 		lineageTag: 2f0d9899-83b0-4b2a-935f-b25d09f6ac60
 
 	/// Doanh thu quốc tế (ngoài Mỹ)
 	measure 'Foreign Revenue' = SUM('public fact_movie'[foreign_gross])
-		formatString: """$""#,##0,,""M"""
+		formatString: \$#,0
 		displayFolder: Market Split
 		lineageTag: 56f98949-3689-442d-9a93-2dd8ce2bb346
 
