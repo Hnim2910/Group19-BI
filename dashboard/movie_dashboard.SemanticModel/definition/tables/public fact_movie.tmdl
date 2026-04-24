@@ -1,0 +1,422 @@
+table 'public fact_movie'
+	lineageTag: 5de54acf-8ca9-4d91-9d2c-ced2e4c43827
+
+	/// Tổng số phim trong kho dữ liệu
+	measure 'Total Movies' = COUNTROWS('public fact_movie')
+		formatString: #,##0
+		displayFolder: KPIs
+		lineageTag: 41d3b9b2-2fcd-4822-930d-8fb7c38e216b
+
+	/// Tổng doanh thu toàn cầu (triệu USD)
+	measure 'Total Revenue' = SUM('public fact_movie'[worldwide_gross])
+		formatString: """$""#,##0,,""M"""
+		displayFolder: KPIs
+		lineageTag: e218d5d9-364f-4998-9ab0-7223f01ba97c
+
+	/// Tổng chi phí sản xuất
+	measure 'Total Budget' = SUM('public fact_movie'[production_budget])
+		formatString: """$""#,##0,,""M"""
+		displayFolder: KPIs
+		lineageTag: e860743f-0f53-409e-b379-10487097a9c5
+
+	/// Tổng lợi nhuận (worldwide_gross - production_budget)
+	measure 'Total Profit' = SUM('public fact_movie'[profit])
+		formatString: """$""#,##0,,""M"""
+		displayFolder: KPIs
+		lineageTag: cbb2a664-eef2-463a-8253-be5e9c5ea2fc
+
+	/// ROI trung bình (Return on Investment)
+	measure 'Avg ROI' = AVERAGE('public fact_movie'[roi])
+		formatString: 0.00"x"
+		displayFolder: KPIs
+		lineageTag: ac6be1f9-6bb1-4bf8-9842-941e83986223
+
+	/// Điểm đánh giá trung bình (thang 10)
+	measure 'Avg Rating' = AVERAGE('public fact_movie'[vote_average])
+		formatString: 0.00
+		displayFolder: KPIs
+		lineageTag: 199f562a-aedc-42df-8791-ea901ad8beb4
+
+	/// Biên lợi nhuận trung bình
+	measure 'Avg Profit Margin' = AVERAGE('public fact_movie'[profit_margin])
+		formatString: 0.0%
+		displayFolder: KPIs
+		lineageTag: bfa276d3-099e-4fdd-91f9-cc04724408da
+
+	/// Tỷ lệ phim có lãi (profit > 0)
+	measure 'Profitable Movies %' =
+			DIVIDE(
+			    CALCULATE(COUNTROWS('public fact_movie'), 'public fact_movie'[profit] > 0),
+			    COUNTROWS('public fact_movie')
+			)
+		formatString: 0.0%
+		displayFolder: KPIs
+		lineageTag: 7b27202a-111a-426b-86ce-645a3d45eb90
+
+	/// Tăng trưởng doanh thu so với năm trước (Year-over-Year)
+	measure 'Revenue YoY %' =
+			VAR CurrentYear = SUM('public fact_movie'[worldwide_gross])
+			VAR PreviousYear =
+			    CALCULATE(
+			        SUM('public fact_movie'[worldwide_gross]),
+			        DATEADD('public dim_time'[full_date], -1, YEAR)
+			    )
+			RETURN
+			    DIVIDE(CurrentYear - PreviousYear, PreviousYear)
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Time Intelligence
+		lineageTag: 0df2f920-5e87-45ae-8b1c-e7613c2bd481
+
+	/// Doanh thu cộng dồn theo thời gian
+	measure 'Cumulative Revenue' =
+			CALCULATE(
+			    SUM('public fact_movie'[worldwide_gross]),
+			    FILTER(
+			        ALL('public dim_time'[full_date]),
+			        'public dim_time'[full_date] <= MAX('public dim_time'[full_date])
+			    )
+			)
+		formatString: """$""#,##0,,""M"""
+		displayFolder: Time Intelligence
+		lineageTag: 834a2f8c-4cdb-4dcc-834e-f93a1030ef32
+
+	/// Số phim theo filter hiện tại (phản ứng với slicer)
+	measure 'Movies Count by Selection' = COUNTROWS('public fact_movie')
+		formatString: #,##0
+		displayFolder: Counts
+		lineageTag: 2babc2be-c30b-4f2c-82c1-98a12d535de8
+
+	/// Doanh thu trung bình mỗi phim
+	measure 'Avg Revenue per Movie' = DIVIDE([Total Revenue], [Total Movies])
+		formatString: """$""#,##0,,""M"""
+		displayFolder: KPIs
+		lineageTag: ca20d6e7-b47e-4fd7-b6e1-b2b528754ac0
+
+	/// Budget trung bình mỗi phim
+	measure 'Avg Budget per Movie' = DIVIDE([Total Budget], [Total Movies])
+		formatString: """$""#,##0,,""M"""
+		displayFolder: KPIs
+		lineageTag: 7ff33dec-e14c-47b3-8a2d-bafa4351dee7
+
+	/// Số phim có doanh thu trên 1 tỷ USD (blockbuster)
+	measure 'Blockbuster Count' =
+			CALCULATE(
+			    COUNTROWS('public fact_movie'),
+			    'public fact_movie'[worldwide_gross] >= 1000000000
+			)
+		formatString: #,##0
+		displayFolder: Counts
+		lineageTag: 250226a2-ca34-4f23-8d10-359aa76db89c
+
+	/// Số phim lỗ (profit âm)
+	measure 'Flop Count' =
+			CALCULATE(
+			    COUNTROWS('public fact_movie'),
+			    'public fact_movie'[profit] < 0
+			)
+		formatString: #,##0
+		displayFolder: Counts
+		lineageTag: 9f3dcfd5-60a5-4673-bbc0-8943f983d755
+
+	/// Thể loại có tổng doanh thu cao nhất (sửa lỗi)
+	measure 'Best Genre by Revenue' =
+			VAR RevenueByGenre =
+			    ADDCOLUMNS(
+			        ALL('public dim_genre'[genre_name]),
+			        "@Rev", CALCULATE([Total Revenue])
+			    )
+			VAR TopGenre =
+			    TOPN(1, RevenueByGenre, [@Rev], DESC)
+			RETURN
+			    MAXX(TopGenre, 'public dim_genre'[genre_name])
+		displayFolder: Rankings
+		lineageTag: 82d5e280-be74-48b1-a21f-53b2eb4a9a5a
+
+	/// Thể loại có ROI trung bình cao nhất (sửa lỗi)
+	measure 'Best Genre by ROI' =
+			VAR ROIByGenre =
+			    ADDCOLUMNS(
+			        ALL('public dim_genre'[genre_name]),
+			        "@ROI", CALCULATE([Avg ROI])
+			    )
+			VAR TopGenre =
+			    TOPN(1, ROIByGenre, [@ROI], DESC)
+			RETURN
+			    MAXX(TopGenre, 'public dim_genre'[genre_name])
+		displayFolder: Rankings
+		lineageTag: ea3a617e-77b9-4de8-88e0-716f111e89c3
+
+	/// Tháng có doanh thu phát hành cao nhất
+	measure 'Best Month by Revenue' =
+			VAR MonthRevenue =
+			    ADDCOLUMNS(
+			        VALUES('public dim_time'[month_name]),
+			        "@Rev", [Total Revenue]
+			    )
+			VAR TopMonth =
+			    TOPN(1, MonthRevenue, [@Rev], DESC)
+			RETURN
+			    CONCATENATEX(TopMonth, 'public dim_time'[month_name])
+		displayFolder: Rankings
+		lineageTag: a2a20489-ccc2-4a78-85de-de43cbf6800c
+
+	/// Tỷ lệ doanh thu từ phim phát hành mùa hè
+	measure 'Summer Revenue %' =
+			DIVIDE(
+			    CALCULATE([Total Revenue], 'public dim_time'[season] = "Summer"),
+			    [Total Revenue]
+			)
+		formatString: 0.0%
+		displayFolder: Seasonal
+		lineageTag: 804d5553-8b90-471b-bac1-e8bead8c1872
+
+	/// Tỷ lệ doanh thu từ phim phát hành tháng 11-12 (mùa lễ)
+	measure 'Holiday Season Revenue %' =
+			DIVIDE(
+			    CALCULATE([Total Revenue], 'public dim_time'[month] IN {11, 12}),
+			    [Total Revenue]
+			)
+		formatString: 0.0%
+		displayFolder: Seasonal
+		lineageTag: c0b729e3-c64c-45e1-a5b8-6f06b7e1db2d
+
+	/// Số phim theo genre (count distinct)
+	measure 'Movies per Genre' =
+			CALCULATE(
+			    DISTINCTCOUNT('public bridge_movie_genre'[movie_id])
+			)
+		formatString: #,##0
+		displayFolder: Genre Analysis
+		lineageTag: 92911de5-63b4-4f73-ad42-8171b9ebe9fe
+
+	/// Doanh thu trung bình mỗi phim trong genre
+	measure 'Avg Revenue per Movie in Genre' = DIVIDE([Total Revenue], [Movies per Genre])
+		formatString: """$""#,##0,,""M"""
+		displayFolder: Genre Analysis
+		lineageTag: 372a56a6-741d-409a-a915-e54d4865f3ad
+
+	/// Doanh thu theo mùa (Spring/Summer/Fall/Winter)
+	measure 'Revenue by Season' = CALCULATE([Total Revenue])
+		formatString: """$""#,##0,,""M"""
+		displayFolder: Time Analysis
+		lineageTag: d82d1e7a-b3e7-440c-9fd7-1285b1f4da85
+
+	/// Doanh thu theo thập niên
+	measure 'Revenue by Decade' = CALCULATE([Total Revenue])
+		formatString: """$""#,##0,,""M"""
+		displayFolder: Time Analysis
+		lineageTag: e48489f8-3682-4eed-bd51-543a08aca1c1
+
+	/// % doanh thu từ thập niên 2010s (biểu đồ bùng nổ)
+	measure '2010s Revenue Share' =
+			DIVIDE(
+			    CALCULATE([Total Revenue], 'public dim_time'[decade] = "2010s"),
+			    [Total Revenue]
+			)
+		formatString: 0.0%
+		displayFolder: Time Analysis
+		lineageTag: d6db1ea5-68ea-4ba5-9828-0c1bff9853c5
+
+	/// Số phim phát hành cuối tuần (weekend)
+	measure 'Weekend Releases' =
+			CALCULATE(
+			    [Total Movies],
+			    'public dim_time'[is_weekend] = TRUE
+			)
+		formatString: #,##0
+		displayFolder: Time Analysis
+		lineageTag: 58d70b69-522e-4ff1-89ce-ebf336a0a682
+
+	/// Doanh thu từ phim phát hành cuối tuần
+	measure 'Weekend Revenue' =
+			CALCULATE(
+			    [Total Revenue],
+			    'public dim_time'[is_weekend] = TRUE
+			)
+		formatString: """$""#,##0,,""M"""
+		displayFolder: Time Analysis
+		lineageTag: f0b87f98-0453-4beb-b3d1-5581b1e491a2
+
+	/// Doanh thu nội địa (Mỹ)
+	measure 'Domestic Revenue' = SUM('public fact_movie'[domestic_gross])
+		formatString: """$""#,##0,,""M"""
+		displayFolder: Market Split
+		lineageTag: 2f0d9899-83b0-4b2a-935f-b25d09f6ac60
+
+	/// Doanh thu quốc tế (ngoài Mỹ)
+	measure 'Foreign Revenue' = SUM('public fact_movie'[foreign_gross])
+		formatString: """$""#,##0,,""M"""
+		displayFolder: Market Split
+		lineageTag: 56f98949-3689-442d-9a93-2dd8ce2bb346
+
+	/// % doanh thu từ thị trường quốc tế
+	measure 'Foreign Revenue %' = DIVIDE([Foreign Revenue], [Total Revenue])
+		formatString: 0.0%
+		displayFolder: Market Split
+		lineageTag: 61e8ffad-e8c0-4718-84c2-c1bc05bf4fd7
+
+	/// Popularity trung bình
+	measure 'Avg Popularity' = AVERAGE('public fact_movie'[popularity])
+		formatString: 0.00
+		displayFolder: Engagement
+		lineageTag: 64d27802-17a6-4e9c-a2f4-6c9e842c5987
+
+	/// Tổng số lượt vote
+	measure 'Total Votes' = SUM('public fact_movie'[vote_count])
+		formatString: #,##0
+		displayFolder: Engagement
+		lineageTag: c89d351b-9633-4832-a863-8339d9a9d523
+
+	column fact_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8e84405d-7e8f-40e0-a8c9-6332e2c2dc19
+		summarizeBy: sum
+		sourceColumn: fact_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column movie_id
+		dataType: int64
+		formatString: 0
+		lineageTag: fd56a50d-a1eb-4997-b750-0adb1ce5c02d
+		summarizeBy: none
+		sourceColumn: movie_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column time_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2641b882-604b-42f2-b107-25a2e7a95f7a
+		summarizeBy: none
+		sourceColumn: time_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column language_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e0f82293-ebe8-4ab1-b762-a2cd6bccab38
+		summarizeBy: none
+		sourceColumn: language_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column production_budget
+		dataType: int64
+		formatString: 0
+		lineageTag: 149b2ea6-e4a0-4362-8e99-8a2da8cf3fa3
+		summarizeBy: sum
+		sourceColumn: production_budget
+
+		annotation SummarizationSetBy = Automatic
+
+	column domestic_gross
+		dataType: int64
+		formatString: 0
+		lineageTag: b49d5a05-20c0-41c4-96a3-d59c4b7623cf
+		summarizeBy: sum
+		sourceColumn: domestic_gross
+
+		annotation SummarizationSetBy = Automatic
+
+	column foreign_gross
+		dataType: int64
+		formatString: 0
+		lineageTag: cd2c8c06-e0ce-48ab-bbc4-f239f13a1b24
+		summarizeBy: sum
+		sourceColumn: foreign_gross
+
+		annotation SummarizationSetBy = Automatic
+
+	column worldwide_gross
+		dataType: int64
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 34ca6634-b258-4b1c-a650-9050c313b6dc
+		summarizeBy: sum
+		sourceColumn: worldwide_gross
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column profit
+		dataType: int64
+		formatString: 0
+		lineageTag: 70fddf88-52ea-4200-ae8f-0b61eb7a0ed5
+		summarizeBy: sum
+		sourceColumn: profit
+
+		annotation SummarizationSetBy = Automatic
+
+	column profit_margin
+		dataType: double
+		lineageTag: 4332d12f-7670-4290-8f6e-05dc7b70ef4e
+		summarizeBy: sum
+		sourceColumn: profit_margin
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column roi
+		dataType: double
+		lineageTag: 94347d8a-d974-4cb8-a3bd-a458f9212e00
+		summarizeBy: sum
+		sourceColumn: roi
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column pct_foreign
+		dataType: double
+		lineageTag: 86a08710-450f-47d3-87fd-3effb36769c7
+		summarizeBy: sum
+		sourceColumn: pct_foreign
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column vote_average
+		dataType: double
+		lineageTag: 309f9ca4-7c35-4920-9311-1149fd3bee0e
+		summarizeBy: sum
+		sourceColumn: vote_average
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column vote_count
+		dataType: int64
+		formatString: 0
+		lineageTag: c27f6ac0-02ff-4105-bcc2-d9121bbe95b5
+		summarizeBy: sum
+		sourceColumn: vote_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column popularity
+		dataType: double
+		lineageTag: eb1d9e40-e4a3-45ba-a1a9-e0a886f3ecc2
+		summarizeBy: sum
+		sourceColumn: popularity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'public fact_movie' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost", "movie_dw"),
+				    public_fact_movie = Source{[Schema="public",Item="fact_movie"]}[Data]
+				in
+				    public_fact_movie
+
+	annotation PBI_ResultType = Table
+

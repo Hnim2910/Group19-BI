@@ -1,0 +1,23 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "g07genretable",
+  "position": { "x": 20, "y": 430, "z": 6000, "height": 260, "width": 1220, "tabOrder": 6000 },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            { "field": { "Column": { "Expression": { "SourceRef": { "Entity": "public dim_genre" } }, "Property": "genre_name" } }, "queryRef": "public dim_genre.genre_name", "nativeQueryRef": "Genre" },
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Movies per Genre" } }, "queryRef": "public fact_movie.Movies per Genre", "nativeQueryRef": "Movies" },
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Total Revenue" } }, "queryRef": "public fact_movie.Total Revenue", "nativeQueryRef": "Revenue" },
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Avg ROI" } }, "queryRef": "public fact_movie.Avg ROI", "nativeQueryRef": "ROI" },
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Avg Rating" } }, "queryRef": "public fact_movie.Avg Rating", "nativeQueryRef": "Rating" }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": { "title": [ { "properties": { "text": { "expr": { "Literal": { "Value": "'Genre Stats'" } } }, "fontSize": { "expr": { "Literal": { "Value": "14D" } } }, "bold": { "expr": { "Literal": { "Value": "true" } } } } } ] },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,37 @@
+table 'public dim_genre'
+	lineageTag: 3a5de7d9-a857-4708-94b7-920597c35ca7
+
+	/// Number of distinct genres available in the model.
+	measure 'Genre Count' = DISTINCTCOUNT('public dim_genre'[genre_id])
+		formatString: #,##0
+		displayFolder: KPIs
+		lineageTag: 4ec8a5ac-9355-4ba7-80e4-a3d6243859d4
+
+	column genre_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b7033eaf-66d8-48e4-8f03-58af51fea013
+		summarizeBy: none
+		sourceColumn: genre_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column genre_name
+		dataType: string
+		lineageTag: 82f3d3ef-e4a8-453e-90ed-0b16da64c6e1
+		summarizeBy: none
+		sourceColumn: genre_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'public dim_genre' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost", "movie_dw"),
+				    public_dim_genre = Source{[Schema="public",Item="dim_genre"]}[Data]
+				in
+				    public_dim_genre
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,100 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1270.0157762820411,
+            "y": 41.327519313934317
+          },
+          "nodeIndex": "public bridge_movie_genre",
+          "nodeLineageTag": "e9187039-434b-456b-89b4-8fee882d58e1",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 820.86497223848744,
+            "y": -15.193960116875132
+          },
+          "nodeIndex": "public dim_genre",
+          "nodeLineageTag": "3a5de7d9-a857-4708-94b7-920597c35ca7",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 144.1513873219256
+          },
+          "nodeIndex": "public dim_language",
+          "nodeLineageTag": "c2cb8289-6230-40fb-88ff-e9093c9f4de1",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 817.97000784927741,
+            "y": 185.48782673347512
+          },
+          "nodeIndex": "public dim_movie",
+          "nodeLineageTag": "3dc47bb2-3fb0-4b30-baf9-ba58ffcd2fbd",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 358.96152993880912,
+            "y": 439.79522247309848
+          },
+          "nodeIndex": "public dim_time",
+          "nodeLineageTag": "0b3f08e7-e83d-4b1d-9160-104a2ded0b28",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 421.54868434498127,
+            "y": -50
+          },
+          "nodeIndex": "public fact_movie",
+          "nodeLineageTag": "5de54acf-8ca9-4d91-9d2c-ced2e4c43827",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

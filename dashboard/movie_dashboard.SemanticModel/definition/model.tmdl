@@ -1,0 +1,26 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["public bridge_movie_genre","public dim_genre","public dim_language","public dim_movie","public dim_time","public fact_movie"]
+
+annotation PBI_ProTooling = ["MCP-PBIModeling","DevMode"]
+
+ref table 'public bridge_movie_genre'
+ref table 'public dim_genre'
+ref table 'public dim_language'
+ref table 'public dim_movie'
+ref table DateTableTemplate_2f7c58e2-14b4-498d-b7c8-f0a604e1a923
+ref table LocalDateTable_dec2cf08-2192-48bc-ab52-75e1a067e8c6
+ref table 'public dim_time'
+ref table LocalDateTable_a7949851-8854-42a3-aa7d-0b7f330c866f
+ref table 'public fact_movie'
+
+ref cultureInfo en-US
+

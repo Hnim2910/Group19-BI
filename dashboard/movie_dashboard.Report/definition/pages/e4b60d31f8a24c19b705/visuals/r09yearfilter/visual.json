@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "r09yearfilter",
+  "position": { "x": 1135, "y": 16, "z": 8000, "height": 100, "width": 105, "tabOrder": 8000 },
+  "visual": {
+    "visualType": "slicer",
+    "query": { "queryState": { "Values": { "projections": [ { "field": { "Column": { "Expression": { "SourceRef": { "Entity": "public dim_time" } }, "Property": "year" } }, "queryRef": "public dim_time.year", "nativeQueryRef": "Year" } ] } } },
+    "visualContainerObjects": { "title": [ { "properties": { "text": { "expr": { "Literal": { "Value": "'Year Filter'" } } } } } ] },
+    "drillFilterOtherVisuals": true
+  }
+}

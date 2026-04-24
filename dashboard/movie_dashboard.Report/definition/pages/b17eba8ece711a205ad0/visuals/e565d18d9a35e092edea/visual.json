@@ -1,0 +1,67 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "e565d18d9a35e092edea",
+  "position": {
+    "x": 950,
+    "y": 16,
+    "z": 3000,
+    "height": 100,
+    "width": 280,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "public fact_movie"
+                        }
+                      },
+                      "Property": "vote_average"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(public fact_movie.vote_average)",
+              "nativeQueryRef": "AVG RATING",
+              "displayName": "AVG RATING"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "public fact_movie"
+                      }
+                    },
+                    "Property": "vote_average"
+                  }
+                },
+                "Function": 1
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

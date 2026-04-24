@@ -1,0 +1,41 @@
+relationship 75dcd290-f24a-4ce3-8749-6626214661bc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'public dim_movie'.release_date
+	toColumn: LocalDateTable_dec2cf08-2192-48bc-ab52-75e1a067e8c6.Date
+
+relationship 011f9c96-8bb1-4dc7-a708-efb39f6d996f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'public dim_time'.full_date
+	toColumn: LocalDateTable_a7949851-8854-42a3-aa7d-0b7f330c866f.Date
+
+relationship 05d97cb2-644c-45e1-926d-0416a7f177d0
+	fromColumn: 'public bridge_movie_genre'.genre_id
+	toColumn: 'public dim_genre'.genre_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 95eb8d56-9e23-40cc-8759-cb3d846222e5
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'public bridge_movie_genre'.movie_id
+	toColumn: 'public dim_movie'.movie_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 271a215f-8a25-4eb1-9538-6f7fe9e5c69d
+	fromColumn: 'public fact_movie'.language_id
+	toColumn: 'public dim_language'.language_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 6f616367-4eb1-4820-a073-37ffa25cbada
+	fromColumn: 'public fact_movie'.movie_id
+	toColumn: 'public dim_movie'.movie_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship a4a63360-8232-4aed-b5df-721a827eedec
+	fromColumn: 'public fact_movie'.time_id
+	toColumn: 'public dim_time'.time_id
+
+	annotation PBI_IsFromSource = FS
+

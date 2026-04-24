@@ -1,0 +1,116 @@
+table 'public dim_time'
+	lineageTag: 0b3f08e7-e83d-4b1d-9160-104a2ded0b28
+
+	column time_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 726adede-85b6-4fd2-8e69-b127f6cebbe3
+		summarizeBy: none
+		sourceColumn: time_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column full_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c4a286fd-4473-43ff-8c77-0dc0710be84e
+		summarizeBy: none
+		sourceColumn: full_date
+
+		variation Variation
+			isDefault
+			relationship: 011f9c96-8bb1-4dc7-a708-efb39f6d996f
+			defaultHierarchy: LocalDateTable_a7949851-8854-42a3-aa7d-0b7f330c866f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 510208e7-6484-47c0-8f11-e887d0ac755e
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 9eba10a4-01f4-4315-b3f2-567255013c5a
+		summarizeBy: sum
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: dd59d994-e042-4f00-9d39-76b131be8a74
+		summarizeBy: sum
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		lineageTag: 28d80b95-a9fe-423e-afef-3e8f3b6c6ca1
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column day
+		dataType: int64
+		formatString: 0
+		lineageTag: ff010021-8cd7-429e-abfb-e38e18a1cef8
+		summarizeBy: sum
+		sourceColumn: day
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_week
+		dataType: string
+		lineageTag: 78f32f91-f79b-47c3-a0fb-df546b9cd508
+		summarizeBy: none
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column decade
+		dataType: string
+		lineageTag: 3c5db082-3b29-459c-b5c6-5f18faea540b
+		summarizeBy: none
+		sourceColumn: decade
+
+		annotation SummarizationSetBy = Automatic
+
+	column season
+		dataType: string
+		lineageTag: d0f87bb9-fe63-4938-8751-68039eb88b59
+		summarizeBy: none
+		sourceColumn: season
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_weekend
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 76d3b0fa-0460-4c97-adc5-17c0ac101055
+		summarizeBy: none
+		sourceColumn: is_weekend
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'public dim_time' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost", "movie_dw"),
+				    public_dim_time = Source{[Schema="public",Item="dim_time"]}[Data]
+				in
+				    public_dim_time
+
+	annotation PBI_ResultType = Table
+

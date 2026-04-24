@@ -1,0 +1,10 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "t01share2010s",
+  "position": { "x": 20, "y": 16, "z": 0, "height": 100, "width": 280, "tabOrder": 0 },
+  "visual": {
+    "visualType": "card",
+    "query": { "queryState": { "Values": { "projections": [ { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "2010s Revenue Share" } }, "queryRef": "public fact_movie.2010s Revenue Share", "nativeQueryRef": "2010s REVENUE SHARE", "displayName": "2010s REVENUE SHARE" } ] } } },
+    "drillFilterOtherVisuals": true
+  }
+}

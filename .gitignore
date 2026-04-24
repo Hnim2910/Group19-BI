@@ -1,0 +1,25 @@
+# Virtual environment
+venv/
+
+# Environment variables (chứa password DB)
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Data (file nặng, không cần push)
+data/processed/
+*.xlsx
+*.pbix.tmp
+
+# Power BI local/cache files
+**/.pbi/
+dashboard/*_BACKUP.pbix

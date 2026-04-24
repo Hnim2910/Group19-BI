@@ -1,0 +1,122 @@
+table 'public dim_movie'
+	lineageTag: 3dc47bb2-3fb0-4b30-baf9-ba58ffcd2fbd
+
+	/// Xếp hạng phim theo doanh thu worldwide (dùng để filter Top N)
+	measure 'Movie Rank by Revenue' =
+			RANKX(
+			    ALL('public dim_movie'[title]),
+			    [Total Revenue],
+			    ,
+			    DESC,
+			    Dense
+			)
+		formatString: #,##0
+		displayFolder: Rankings
+		lineageTag: 17633f2d-a8a5-4399-a995-57cf645d1f38
+
+	/// Xếp hạng phim theo ROI
+	measure 'Movie Rank by ROI' =
+			RANKX(
+			    ALL('public dim_movie'[title]),
+			    [Avg ROI],
+			    ,
+			    DESC,
+			    Dense
+			)
+		formatString: #,##0
+		displayFolder: Rankings
+		lineageTag: 66d75a5f-c0b8-419f-8cbc-b0187994cc80
+
+	/// Xếp hạng phim theo rating (phim phải có >=500 votes để tránh bias)
+	measure 'Movie Rank by Rating' =
+			IF(
+			    CALCULATE(SUM('public fact_movie'[vote_count])) >= 500,
+			    RANKX(
+			        FILTER(
+			            ALL('public dim_movie'[title]),
+			            CALCULATE(SUM('public fact_movie'[vote_count])) >= 500
+			        ),
+			        [Avg Rating],
+			        ,
+			        DESC,
+			        Dense
+			    ),
+			    BLANK()
+			)
+		formatString: #,##0
+		displayFolder: Rankings
+		lineageTag: 306b6a95-5824-476a-b2e4-d2b4c9a00b5d
+
+	/// Revenue value only for the top 10 movies by worldwide revenue.
+	measure 'Top 10 Movie Revenue' =
+			IF(
+			    [Movie Rank by Revenue] <= 10,
+			    [Total Revenue]
+			)
+		formatString: """$""#,##0,,""M"""
+		displayFolder: Rankings
+		lineageTag: 7c4f6d71-897b-4a10-a1be-70e6927a7e01
+
+	/// Revenue value only for the top 20 movies by worldwide revenue.
+	measure 'Top 20 Movie Revenue' =
+			IF(
+			    [Movie Rank by Revenue] <= 20,
+			    [Total Revenue]
+			)
+		formatString: """$""#,##0,,""M"""
+		displayFolder: Rankings
+		lineageTag: 517c0d9f-75f5-44cb-8a23-6c223a6a47c4
+
+	column movie_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 7c4acf52-ab60-4fe6-b99d-1e063b69d43f
+		summarizeBy: none
+		sourceColumn: movie_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		lineageTag: 3839f8af-0c26-414c-bca1-8e60d24eaf80
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column release_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b6067534-cf94-4ae7-a35a-438b520e6300
+		summarizeBy: none
+		sourceColumn: release_date
+
+		variation Variation
+			isDefault
+			relationship: 75dcd290-f24a-4ce3-8749-6626214661bc
+			defaultHierarchy: LocalDateTable_dec2cf08-2192-48bc-ab52-75e1a067e8c6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column source_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8143469c-6d62-48dd-9d4c-743f47a3a07a
+		summarizeBy: sum
+		sourceColumn: source_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'public dim_movie' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost", "movie_dw"),
+				    public_dim_movie = Source{[Schema="public",Item="dim_movie"]}[Data]
+				in
+				    public_dim_movie
+
+	annotation PBI_ResultType = Table
+

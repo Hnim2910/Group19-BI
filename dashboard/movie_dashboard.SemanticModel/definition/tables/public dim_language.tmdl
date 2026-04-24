@@ -1,0 +1,39 @@
+table 'public dim_language'
+	lineageTag: c2cb8289-6230-40fb-88ff-e9093c9f4de1
+
+	column language_id
+		dataType: int64
+		formatString: 0
+		lineageTag: de467703-3e4b-467e-903c-ba3be7b397ff
+		summarizeBy: none
+		sourceColumn: language_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column language_code
+		dataType: string
+		lineageTag: 760ce6ea-2c59-4da0-abf7-3624ba14d74b
+		summarizeBy: none
+		sourceColumn: language_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column language_name
+		dataType: string
+		lineageTag: a113e71a-1adf-47d5-8bf1-de0e268ea7d5
+		summarizeBy: none
+		sourceColumn: language_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'public dim_language' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost", "movie_dw"),
+				    public_dim_language = Source{[Schema="public",Item="dim_language"]}[Data]
+				in
+				    public_dim_language
+
+	annotation PBI_ResultType = Table
+

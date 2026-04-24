@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "t07countyear",
+  "position": { "x": 20, "y": 430, "z": 6000, "height": 260, "width": 820, "tabOrder": 6000 },
+  "visual": {
+    "visualType": "lineChart",
+    "query": { "queryState": { "Category": { "projections": [ { "field": { "Column": { "Expression": { "SourceRef": { "Entity": "public dim_time" } }, "Property": "year" } }, "queryRef": "public dim_time.year", "nativeQueryRef": "year", "active": true } ] }, "Y": { "projections": [ { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Total Movies" } }, "queryRef": "public fact_movie.Total Movies", "nativeQueryRef": "Total Movies" } ] } } },
+    "visualContainerObjects": { "title": [ { "properties": { "text": { "expr": { "Literal": { "Value": "'Movie Count per Year'" } } }, "fontSize": { "expr": { "Literal": { "Value": "14D" } } }, "bold": { "expr": { "Literal": { "Value": "true" } } } } } ] },
+    "drillFilterOtherVisuals": true
+  }
+}

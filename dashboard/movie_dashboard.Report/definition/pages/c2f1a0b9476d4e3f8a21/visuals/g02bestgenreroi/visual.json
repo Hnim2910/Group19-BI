@@ -1,0 +1,23 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "g02bestgenreroi",
+  "position": { "x": 460, "y": 16, "z": 1000, "height": 100, "width": 360, "tabOrder": 1000 },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Best Genre by ROI" } },
+              "queryRef": "public fact_movie.Best Genre by ROI",
+              "nativeQueryRef": "MOST PROFITABLE GENRE",
+              "displayName": "MOST PROFITABLE GENRE"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

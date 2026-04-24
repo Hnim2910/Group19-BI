@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "g06genrescatter",
+  "position": { "x": 880, "y": 150, "z": 5000, "height": 250, "width": 360, "tabOrder": 5000 },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Category": { "projections": [ { "field": { "Column": { "Expression": { "SourceRef": { "Entity": "public dim_genre" } }, "Property": "genre_name" } }, "queryRef": "public dim_genre.genre_name", "nativeQueryRef": "genre_name", "active": true } ] },
+        "X": { "projections": [ { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Avg Budget per Movie" } }, "queryRef": "public fact_movie.Avg Budget per Movie", "nativeQueryRef": "Avg Budget per Movie" } ] },
+        "Y": { "projections": [ { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Avg Revenue per Movie in Genre" } }, "queryRef": "public fact_movie.Avg Revenue per Movie in Genre", "nativeQueryRef": "Avg Revenue per Movie in Genre" } ] },
+        "Size": { "projections": [ { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Movies per Genre" } }, "queryRef": "public fact_movie.Movies per Genre", "nativeQueryRef": "Movies per Genre" } ] }
+      }
+    },
+    "visualContainerObjects": { "title": [ { "properties": { "text": { "expr": { "Literal": { "Value": "'Avg Budget vs Avg Revenue by Genre'" } } }, "fontSize": { "expr": { "Literal": { "Value": "14D" } } }, "bold": { "expr": { "Literal": { "Value": "true" } } } } } ] },
+    "drillFilterOtherVisuals": true
+  }
+}

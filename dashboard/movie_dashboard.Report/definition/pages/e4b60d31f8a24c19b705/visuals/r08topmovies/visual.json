@@ -1,0 +1,28 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "r08topmovies",
+  "position": { "x": 20, "y": 420, "z": 7000, "height": 270, "width": 1220, "tabOrder": 7000 },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            { "field": { "Column": { "Expression": { "SourceRef": { "Entity": "public dim_movie" } }, "Property": "title" } }, "queryRef": "public dim_movie.title", "nativeQueryRef": "Movie" },
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public dim_movie" } }, "Property": "Top 20 Movie Revenue" } }, "queryRef": "public dim_movie.Top 20 Movie Revenue", "nativeQueryRef": "Revenue" },
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Total Budget" } }, "queryRef": "public fact_movie.Total Budget", "nativeQueryRef": "Budget" },
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Avg ROI" } }, "queryRef": "public fact_movie.Avg ROI", "nativeQueryRef": "ROI" },
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Avg Rating" } }, "queryRef": "public fact_movie.Avg Rating", "nativeQueryRef": "Rating" },
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Total Votes" } }, "queryRef": "public fact_movie.Total Votes", "nativeQueryRef": "Votes" }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [ { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public dim_movie" } }, "Property": "Top 20 Movie Revenue" } }, "direction": "Descending" } ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": { "title": [ { "properties": { "text": { "expr": { "Literal": { "Value": "'Top 20 Movies'" } } }, "fontSize": { "expr": { "Literal": { "Value": "14D" } } }, "bold": { "expr": { "Literal": { "Value": "true" } } } } } ] },
+    "drillFilterOtherVisuals": true
+  }
+}

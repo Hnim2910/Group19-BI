@@ -1,0 +1,32 @@
+table 'public bridge_movie_genre'
+	lineageTag: e9187039-434b-456b-89b4-8fee882d58e1
+
+	column movie_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 33e9dc18-7b29-4b68-9096-ae076db5c402
+		summarizeBy: none
+		sourceColumn: movie_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column genre_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 27e01f4c-7d67-43f5-a502-233a8ced6e04
+		summarizeBy: none
+		sourceColumn: genre_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'public bridge_movie_genre' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost", "movie_dw"),
+				    public_bridge_movie_genre = Source{[Schema="public",Item="bridge_movie_genre"]}[Data]
+				in
+				    public_bridge_movie_genre
+
+	annotation PBI_ResultType = Table
+

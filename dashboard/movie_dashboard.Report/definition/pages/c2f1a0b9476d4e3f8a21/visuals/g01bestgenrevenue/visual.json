@@ -1,0 +1,23 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "g01bestgenrevenue",
+  "position": { "x": 20, "y": 16, "z": 0, "height": 100, "width": 360, "tabOrder": 0 },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "public fact_movie" } }, "Property": "Best Genre by Revenue" } },
+              "queryRef": "public fact_movie.Best Genre by Revenue",
+              "nativeQueryRef": "BEST GENRE",
+              "displayName": "BEST GENRE"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

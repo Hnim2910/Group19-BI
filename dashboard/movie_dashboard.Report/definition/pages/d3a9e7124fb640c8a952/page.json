@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "d3a9e7124fb640c8a952",
+  "displayName": "Time Trends",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

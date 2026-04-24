@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "r05genrefilter",
+  "position": { "x": 1020, "y": 16, "z": 4000, "height": 100, "width": 105, "tabOrder": 4000 },
+  "visual": {
+    "visualType": "slicer",
+    "query": { "queryState": { "Values": { "projections": [ { "field": { "Column": { "Expression": { "SourceRef": { "Entity": "public dim_genre" } }, "Property": "genre_name" } }, "queryRef": "public dim_genre.genre_name", "nativeQueryRef": "Genre" } ] } } },
+    "visualContainerObjects": { "title": [ { "properties": { "text": { "expr": { "Literal": { "Value": "'Genre Filter'" } } } } } ] },
+    "drillFilterOtherVisuals": true
+  }
+}
