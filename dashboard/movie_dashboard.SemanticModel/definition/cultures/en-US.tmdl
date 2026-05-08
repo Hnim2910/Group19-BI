@@ -36,7 +36,7 @@ cultureInfo en-US
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "MOST PROFITABLE GENRE": {
+			          "BEST GENRE BY AVG ROI": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -54,19 +54,7 @@ cultureInfo en-US
 			          "ConceptualProperty": "2010s Revenue Share"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "2010s REVENUE SHARE": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "public_fact_movie.best_month_by_revenue": {
 			      "Definition": {
@@ -226,6 +214,27 @@ cultureInfo en-US
 			      "Terms": [
 			        {
 			          "GENRE COUNT": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "public_fact_movie.overall_roi": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "public fact_movie",
+			          "ConceptualProperty": "Overall ROI"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "OVERALL ROI": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",

@@ -11,9 +11,15 @@ Chạy: python etl_pipeline.py
 """
 
 import os
+import sys
 import pandas as pd
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
 
 # ===== Load config từ file .env =====
 load_dotenv()
@@ -25,6 +31,8 @@ DB_PORT     = os.getenv("DB_PORT", "5432")
 DB_NAME     = os.getenv("DB_NAME", "movie_dw")
 
 CSV_PATH = "data/raw/final_dataset.csv"
+START_YEAR = 2010
+END_YEAR = 2018
 
 # Map mã ngôn ngữ ISO 639-1 sang tên đầy đủ
 LANGUAGE_MAP = {
@@ -51,10 +59,58 @@ def extract(csv_path: str) -> pd.DataFrame:
 def transform(df: pd.DataFrame) -> dict:
     print("[TRANSFORM] Bắt đầu xử lý dữ liệu...")
 
-    # Xóa dòng thiếu genres (8 dòng)
-    df = df.dropna(subset=["genres"]).copy()
-    df = df.reset_index(drop=True)
-    df["source_id"] = df.index  # giữ ID gốc
+    raw_count = len(df)
+    df = df.copy()
+
+    # Chuẩn hóa các cột dùng để lọc/làm sạch
+    df["year"] = pd.to_numeric(df["year"], errors="coerce").astype("Int64")
+    df["month"] = pd.to_numeric(df["month"], errors="coerce").astype("Int64")
+    df["movie"] = df["movie"].astype("string").str.strip()
+    df["genres"] = df["genres"].astype("string").str.strip()
+    df["genres"] = df["genres"].replace({"": pd.NA, "None": pd.NA, "nan": pd.NA})
+
+    # Chỉ phân tích giai đoạn dữ liệu đủ dày. 2019 chỉ có rất ít bản ghi.
+    df = df[df["year"].between(START_YEAR, END_YEAR)].copy()
+    after_year_filter = len(df)
+
+    # Loại bản ghi thiếu khóa phân tích chính
+    df = df.dropna(subset=["movie", "year", "month", "genres"]).copy()
+    after_required_filter = len(df)
+
+    # Xóa dòng trùng hoàn toàn sau khi đã bỏ cột index ở bước extract
+    before_exact_dedup = len(df)
+    df = df.drop_duplicates().copy()
+    exact_duplicates_removed = before_exact_dedup - len(df)
+
+    # Một số phim trùng theo movie + year nhưng khác metadata.
+    # Giữ bản ghi có nhiều thông tin phân tích hơn, rồi ưu tiên vote_count cao hơn.
+    metadata_cols = [
+        "genres", "release_date", "original_language", "vote_average",
+        "vote_count", "popularity"
+    ]
+    for col in ["vote_count", "popularity"]:
+        df[col] = pd.to_numeric(df[col], errors="coerce")
+    df["metadata_score"] = df[metadata_cols].notna().sum(axis=1)
+    before_key_dedup = len(df)
+    df = (
+        df.sort_values(
+            ["movie", "year", "metadata_score", "vote_count", "popularity"],
+            ascending=[True, True, False, False, False],
+        )
+        .drop_duplicates(subset=["movie", "year"], keep="first")
+        .drop(columns=["metadata_score"])
+        .reset_index(drop=True)
+    )
+    key_duplicates_removed = before_key_dedup - len(df)
+
+    df["source_id"] = df.index  # ID sau khi làm sạch để map dimension/fact
+
+    print(f"            - Raw rows                  : {raw_count}")
+    print(f"            - Filter {START_YEAR}-{END_YEAR} rows      : {after_year_filter}")
+    print(f"            - Missing required removed  : {after_year_filter - after_required_filter}")
+    print(f"            - Exact duplicates removed  : {exact_duplicates_removed}")
+    print(f"            - Movie/year duplicates rmv : {key_duplicates_removed}")
+    print(f"            - Clean rows                : {len(df)}")
 
     # --- Chuẩn hóa release_date ---
     df["release_date"] = pd.to_datetime(df["release_date"], errors="coerce")

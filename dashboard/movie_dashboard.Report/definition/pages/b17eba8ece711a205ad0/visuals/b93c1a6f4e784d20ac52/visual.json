@@ -23,11 +23,11 @@
                       "Entity": "public dim_time"
                     }
                   },
-                  "Property": "decade"
+                  "Property": "year"
                 }
               },
-              "queryRef": "public dim_time.decade",
-              "nativeQueryRef": "decade",
+              "queryRef": "public dim_time.year",
+              "nativeQueryRef": "year",
               "active": true
             }
           ]
@@ -42,11 +42,11 @@
                       "Entity": "public fact_movie"
                     }
                   },
-                  "Property": "Revenue by Decade"
+                  "Property": "Total Profit"
                 }
               },
-              "queryRef": "public fact_movie.Revenue by Decade",
-              "nativeQueryRef": "Revenue by Decade"
+              "queryRef": "public fact_movie.Total Profit",
+              "nativeQueryRef": "Total Profit"
             }
           ]
         }
@@ -59,7 +59,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Revenue by Decade'"
+                  "Value": "'Profit by Year'"
                 }
               }
             },

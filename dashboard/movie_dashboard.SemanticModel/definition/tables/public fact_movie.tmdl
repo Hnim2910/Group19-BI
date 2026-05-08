@@ -267,6 +267,12 @@ table 'public fact_movie'
 		displayFolder: Engagement
 		lineageTag: c89d351b-9633-4832-a863-8339d9a9d523
 
+	/// ROI tổng thể của toàn bộ tập dữ liệu
+	measure 'Overall ROI' = DIVIDE([Total Profit], [Total Budget])
+		formatString: 0.00"x"
+		displayFolder: KPIs
+		lineageTag: 219e00d6-2bbf-4d21-9d87-c2f5180d9a33
+
 	column fact_id
 		dataType: int64
 		formatString: 0
