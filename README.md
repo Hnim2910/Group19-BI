@@ -28,11 +28,6 @@ python etl/etl_pipeline.py
 
 5. Open `dashboard/movie_dashboard.pbip` in Power BI Desktop.
 
-## Notes
-
-- `.env`, `venv/`, Power BI `.pbi/` cache files, and backup PBIX files are intentionally ignored.
-- The committed dashboard source is the editable PBIP project, not local cache output.
-
 ## Dataset Credit
 
 The dataset used in this project is credited to the GitHub repository
