@@ -12,21 +12,22 @@ Business Intelligence project for movie revenue, genre, time trend, and rating a
 
 ## Setup
 
-1. Create a Python virtual environment.
-2. Install dependencies:
+1. Clone this repository
+2. Create a Python virtual environment.
+3. Install dependencies:
 
 ```powershell
 pip install -r requirements.txt
 ```
 
-3. Copy `.env.example` to `.env` and update local database credentials.
-4. Run the ETL pipeline if the database needs to be populated:
+4. Copy `.env.example` to `.env` and update local database credentials.
+5. Run the ETL pipeline if the database needs to be populated:
 
 ```powershell
 python etl/etl_pipeline.py
 ```
 
-5. Open `dashboard/movie_dashboard.pbip` in Power BI Desktop.
+6. Open `dashboard/movie_dashboard.pbip` in Power BI Desktop.
 
 ## Dataset Credit
 
