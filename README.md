@@ -32,3 +32,8 @@ python etl/etl_pipeline.py
 
 - `.env`, `venv/`, Power BI `.pbi/` cache files, and backup PBIX files are intentionally ignored.
 - The committed dashboard source is the editable PBIP project, not local cache output.
+
+## Dataset Credit
+
+The dataset used in this project is credited to the GitHub repository
+[ntdoris/movie-revenue-analysis](https://github.com/ntdoris/movie-revenue-analysis).
