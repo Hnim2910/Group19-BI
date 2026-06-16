@@ -6,6 +6,7 @@ Business Intelligence project for movie revenue, genre, time trend, and rating a
 
 - `dashboard/`: Power BI PBIP report and semantic model.
 - `data/raw/final_dataset.csv`: source dataset used by the ETL pipeline.
+- `docs/GROUP 19 BI FINAL REPORT.docx`: final report document.
 - `etl/etl_pipeline.py`: ETL script for loading/transformation.
 - `sql/01_create_schema.sql`: database schema script.
 - `.env.example`: sample environment configuration.
