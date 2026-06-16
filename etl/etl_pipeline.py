@@ -1,14 +1,8 @@
-"""
-===================================================================
-BI Movie Analysis - ETL Pipeline
-===================================================================
-Extract : Đọc final_dataset.csv
-Transform: Làm sạch, chuẩn hóa, tách dimensions
-Load    : Đưa vào PostgreSQL theo Star Schema
 
-Chạy: python etl_pipeline.py
-===================================================================
-"""
+# ===================================================================
+# BI Movie Analysis - ETL Pipeline
+# ===================================================================
+
 
 import os
 import sys
