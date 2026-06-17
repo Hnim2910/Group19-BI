@@ -50,7 +50,7 @@ The final dashboard provides four main pages:
 ```powershell
 pip install -r requirements.txt
 ```
-4. Run the sql script in sql/01_create_schema.sql
+4. Run the sql script in sql/01_create_schema.sql on PostgreSQL
 5. Copy `.env.example` to `.env` and update local database credentials.
 6. Run the ETL pipeline to load the data in to the database:
 
